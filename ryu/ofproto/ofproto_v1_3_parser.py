@@ -84,6 +84,7 @@ def msg_parser(datapath, version, msg_type, msg_len, xid, buf):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_HELLO)
 class OFPHello(MsgBase):
+
     """
     Hello message
 
@@ -99,6 +100,7 @@ class OFPHello(MsgBase):
     elements   list of ``OFPHelloElemVersionBitmap`` instance
     ========== =========================================================
     """
+
     def __init__(self, datapath, elements=[]):
         super(OFPHello, self).__init__(datapath)
         self.elements = elements
@@ -127,6 +129,7 @@ class OFPHello(MsgBase):
 
 
 class OFPHelloElemVersionBitmap(StringifyMixin):
+
     """
     Version bitmap Hello Element
 
@@ -136,6 +139,7 @@ class OFPHelloElemVersionBitmap(StringifyMixin):
     versions   list of versions of OpenFlow protocol a device supports
     ========== =========================================================
     """
+
     def __init__(self, versions, type_=None, length=None):
         super(OFPHelloElemVersionBitmap, self).__init__()
         self.type = ofproto.OFPHET_VERSIONBITMAP
@@ -172,6 +176,7 @@ class OFPHelloElemVersionBitmap(StringifyMixin):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_ERROR)
 class OFPErrorMsg(MsgBase):
+
     """
     Error message
 
@@ -220,6 +225,7 @@ class OFPErrorMsg(MsgBase):
                               'message=%s',
                               msg.type, msg.code, utils.hex_array(msg.data))
     """
+
     def __init__(self, datapath, type_=None, code=None, data=None):
         super(OFPErrorMsg, self).__init__(datapath)
         self.type = type_
@@ -249,6 +255,7 @@ class OFPErrorMsg(MsgBase):
 
 
 class OFPErrorExperimenterMsg(MsgBase):
+
     def __init__(self, datapath, type_=None, exp_type=None, experimenter=None,
                  data=None):
         super(OFPErrorExperimenterMsg, self).__init__(datapath)
@@ -279,6 +286,7 @@ class OFPErrorExperimenterMsg(MsgBase):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_ECHO_REQUEST)
 class OFPEchoRequest(MsgBase):
+
     """
     Echo request message
 
@@ -306,6 +314,7 @@ class OFPEchoRequest(MsgBase):
             self.logger.debug('OFPEchoRequest received: data=%s',
                               utils.hex_array(ev.msg.data))
     """
+
     def __init__(self, datapath, data=None):
         super(OFPEchoRequest, self).__init__(datapath)
         self.data = data
@@ -325,6 +334,7 @@ class OFPEchoRequest(MsgBase):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_ECHO_REPLY)
 class OFPEchoReply(MsgBase):
+
     """
     Echo reply message
 
@@ -352,6 +362,7 @@ class OFPEchoReply(MsgBase):
             self.logger.debug('OFPEchoReply received: data=%s',
                               utils.hex_array(ev.msg.data))
     """
+
     def __init__(self, datapath, data=None):
         super(OFPEchoReply, self).__init__(datapath)
         self.data = data
@@ -371,6 +382,7 @@ class OFPEchoReply(MsgBase):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_EXPERIMENTER)
 class OFPExperimenter(MsgBase):
+
     """
     Experimenter extension message
 
@@ -382,6 +394,7 @@ class OFPExperimenter(MsgBase):
     data          Experimenter defined arbitrary additional data
     ============= =========================================================
     """
+
     def __init__(self, datapath, experimenter=None, exp_type=None, data=None):
         super(OFPExperimenter, self).__init__(datapath)
         self.experimenter = experimenter
@@ -410,6 +423,7 @@ class OFPExperimenter(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_FEATURES_REQUEST)
 class OFPFeaturesRequest(MsgBase):
+
     """
     Features request message
 
@@ -427,6 +441,7 @@ class OFPFeaturesRequest(MsgBase):
             req = ofp_parser.OFPFeaturesRequest(datapath)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath):
         super(OFPFeaturesRequest, self).__init__(datapath)
 
@@ -434,6 +449,7 @@ class OFPFeaturesRequest(MsgBase):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_FEATURES_REPLY)
 class OFPSwitchFeatures(MsgBase):
+
     """
     Features reply message
 
@@ -456,6 +472,7 @@ class OFPSwitchFeatures(MsgBase):
                               msg.datapath_id, msg.n_buffers, msg.n_tables,
                               msg.auxiliary_id, msg.capabilities)
     """
+
     def __init__(self, datapath, datapath_id=None, n_buffers=None,
                  n_tables=None, auxiliary_id=None, capabilities=None):
         super(OFPSwitchFeatures, self).__init__(datapath)
@@ -482,6 +499,7 @@ class OFPSwitchFeatures(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_GET_CONFIG_REQUEST)
 class OFPGetConfigRequest(MsgBase):
+
     """
     Get config request message
 
@@ -496,6 +514,7 @@ class OFPGetConfigRequest(MsgBase):
             req = ofp_parser.OFPGetConfigRequest(datapath)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath):
         super(OFPGetConfigRequest, self).__init__(datapath)
 
@@ -503,6 +522,7 @@ class OFPGetConfigRequest(MsgBase):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_GET_CONFIG_REPLY)
 class OFPGetConfigReply(MsgBase):
+
     """
     Get config reply message
 
@@ -541,6 +561,7 @@ class OFPGetConfigReply(MsgBase):
                               'flags=%s miss_send_len=%d',
                               ','.join(flags), msg.miss_send_len)
     """
+
     def __init__(self, datapath, flags=None, miss_send_len=None):
         super(OFPGetConfigReply, self).__init__(datapath)
         self.flags = flags
@@ -558,6 +579,7 @@ class OFPGetConfigReply(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_SET_CONFIG)
 class OFPSetConfig(MsgBase):
+
     """
     Set config request message
 
@@ -585,6 +607,7 @@ class OFPSetConfig(MsgBase):
             req = ofp_parser.OFPSetConfig(datapath, ofp.OFPC_FRAG_NORMAL, 256)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, miss_send_len=0):
         super(OFPSetConfig, self).__init__(datapath)
         self.flags = flags
@@ -604,6 +627,7 @@ UINT16_MAX = (1 << 16) - 1
 
 
 class Flow(object):
+
     def __init__(self):
         self.in_port = 0
         self.in_phy_port = 0
@@ -648,6 +672,7 @@ class Flow(object):
 
 
 class FlowWildcards(object):
+
     def __init__(self):
         self.metadata_mask = 0
         self.dl_dst_mask = 0
@@ -675,6 +700,7 @@ class FlowWildcards(object):
 
 
 class OFPMatch(StringifyMixin):
+
     """
     Flow Match Structure
 
@@ -1890,6 +1916,7 @@ class MTArpTha(OFPMatchField):
 
 
 class MTIPv6(StringifyMixin):
+
     @classmethod
     def field_parser(cls, header, buf, offset):
         if ofproto.oxm_tlv_header_extract_hasmask(header):
@@ -2070,6 +2097,7 @@ class MTIPv6ExtHdr(OFPMatchField):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_PACKET_IN)
 class OFPPacketIn(MsgBase):
+
     """
     Packet-In message
 
@@ -2115,6 +2143,7 @@ class OFPPacketIn(MsgBase):
                               msg.table_id, msg.cookie, msg.match,
                               utils.hex_array(msg.data))
     """
+
     def __init__(self, datapath, buffer_id=None, total_len=None, reason=None,
                  table_id=None, cookie=None, match=None, data=None):
         super(OFPPacketIn, self).__init__(datapath)
@@ -2152,6 +2181,7 @@ class OFPPacketIn(MsgBase):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_FLOW_REMOVED)
 class OFPFlowRemoved(MsgBase):
+
     """
     Flow removed message
 
@@ -2208,6 +2238,7 @@ class OFPFlowRemoved(MsgBase):
                               msg.idle_timeout, msg.hard_timeout,
                               msg.packet_count, msg.byte_count, msg.match)
     """
+
     def __init__(self, datapath, cookie=None, priority=None, reason=None,
                  table_id=None, duration_sec=None, duration_nsec=None,
                  idle_timeout=None, hard_timeout=None, packet_count=None,
@@ -2276,6 +2307,7 @@ class OFPPort(ofproto_parser.namedtuple('OFPPort', (
 @_register_parser
 @_set_msg_type(ofproto.OFPT_PORT_STATUS)
 class OFPPortStatus(MsgBase):
+
     """
     Port status message
 
@@ -2312,6 +2344,7 @@ class OFPPortStatus(MsgBase):
             self.logger.debug('OFPPortStatus received: reason=%s desc=%s',
                               reason, msg.desc)
     """
+
     def __init__(self, datapath, reason=None, desc=None):
         super(OFPPortStatus, self).__init__(datapath)
         self.reason = reason
@@ -2331,6 +2364,7 @@ class OFPPortStatus(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_PACKET_OUT)
 class OFPPacketOut(MsgBase):
+
     """
     Packet-Out message
 
@@ -2357,6 +2391,7 @@ class OFPPacketOut(MsgBase):
                                           in_port, actions)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, buffer_id=None, in_port=None, actions=None,
                  data=None, actions_len=None):
         assert in_port is not None
@@ -2387,6 +2422,7 @@ class OFPPacketOut(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_FLOW_MOD)
 class OFPFlowMod(MsgBase):
+
     """
     Modify Flow entry message
 
@@ -2450,6 +2486,7 @@ class OFPFlowMod(MsgBase):
                                         match, inst)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, cookie=0, cookie_mask=0, table_id=0,
                  command=ofproto.OFPFC_ADD,
                  idle_timeout=0, hard_timeout=0,
@@ -2517,6 +2554,7 @@ class OFPInstruction(StringifyMixin):
 
 @OFPInstruction.register_instruction_type([ofproto.OFPIT_GOTO_TABLE])
 class OFPInstructionGotoTable(OFPInstruction):
+
     """
     Goto table instruction
 
@@ -2528,6 +2566,7 @@ class OFPInstructionGotoTable(OFPInstruction):
     table_id         Next table
     ================ ======================================================
     """
+
     def __init__(self, table_id, type_=None, len_=None):
         super(OFPInstructionGotoTable, self).__init__()
         self.type = ofproto.OFPIT_GOTO_TABLE
@@ -2548,6 +2587,7 @@ class OFPInstructionGotoTable(OFPInstruction):
 
 @OFPInstruction.register_instruction_type([ofproto.OFPIT_WRITE_METADATA])
 class OFPInstructionWriteMetadata(OFPInstruction):
+
     """
     Write metadata instruction
 
@@ -2560,6 +2600,7 @@ class OFPInstructionWriteMetadata(OFPInstruction):
     metadata_mask    Metadata write bitmask
     ================ ======================================================
     """
+
     def __init__(self, metadata, metadata_mask, type_=None, len_=None):
         super(OFPInstructionWriteMetadata, self).__init__()
         self.type = ofproto.OFPIT_WRITE_METADATA
@@ -2584,6 +2625,7 @@ class OFPInstructionWriteMetadata(OFPInstruction):
                                            ofproto.OFPIT_APPLY_ACTIONS,
                                            ofproto.OFPIT_CLEAR_ACTIONS])
 class OFPInstructionActions(OFPInstruction):
+
     """
     Actions instruction
 
@@ -2602,6 +2644,7 @@ class OFPInstructionActions(OFPInstruction):
 
     ``type`` attribute corresponds to ``type_`` parameter of __init__.
     """
+
     def __init__(self, type_, actions=None, len_=None):
         super(OFPInstructionActions, self).__init__()
         self.type = type_
@@ -2646,6 +2689,7 @@ class OFPInstructionActions(OFPInstruction):
 
 @OFPInstruction.register_instruction_type([ofproto.OFPIT_METER])
 class OFPInstructionMeter(OFPInstruction):
+
     """
     Meter instruction
 
@@ -2677,6 +2721,7 @@ class OFPInstructionMeter(OFPInstruction):
 
 
 class OFPActionHeader(StringifyMixin):
+
     def __init__(self, type_, len_):
         self.type = type_
         self.len = len_
@@ -2715,6 +2760,7 @@ class OFPAction(OFPActionHeader):
 @OFPAction.register_action_type(ofproto.OFPAT_OUTPUT,
                                 ofproto.OFP_ACTION_OUTPUT_SIZE)
 class OFPActionOutput(OFPAction):
+
     """
     Output action
 
@@ -2727,6 +2773,7 @@ class OFPActionOutput(OFPAction):
     max_len          Max length to send to controller
     ================ ======================================================
     """
+
     def __init__(self, port, max_len=ofproto.OFPCML_MAX,
                  type_=None, len_=None):
         super(OFPActionOutput, self).__init__()
@@ -2747,6 +2794,7 @@ class OFPActionOutput(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_GROUP,
                                 ofproto.OFP_ACTION_GROUP_SIZE)
 class OFPActionGroup(OFPAction):
+
     """
     Group action
 
@@ -2758,6 +2806,7 @@ class OFPActionGroup(OFPAction):
     group_id         Group identifier
     ================ ======================================================
     """
+
     def __init__(self, group_id=0, type_=None, len_=None):
         super(OFPActionGroup, self).__init__()
         self.group_id = group_id
@@ -2776,6 +2825,7 @@ class OFPActionGroup(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_SET_QUEUE,
                                 ofproto.OFP_ACTION_SET_QUEUE_SIZE)
 class OFPActionSetQueue(OFPAction):
+
     """
     Set queue action
 
@@ -2788,6 +2838,7 @@ class OFPActionSetQueue(OFPAction):
     queue_id         Queue ID for the packets
     ================ ======================================================
     """
+
     def __init__(self, queue_id, type_=None, len_=None):
         super(OFPActionSetQueue, self).__init__()
         self.queue_id = queue_id
@@ -2806,6 +2857,7 @@ class OFPActionSetQueue(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_SET_MPLS_TTL,
                                 ofproto.OFP_ACTION_MPLS_TTL_SIZE)
 class OFPActionSetMplsTtl(OFPAction):
+
     """
     Set MPLS TTL action
 
@@ -2817,6 +2869,7 @@ class OFPActionSetMplsTtl(OFPAction):
     mpls_ttl         MPLS TTL
     ================ ======================================================
     """
+
     def __init__(self, mpls_ttl, type_=None, len_=None):
         super(OFPActionSetMplsTtl, self).__init__()
         self.mpls_ttl = mpls_ttl
@@ -2835,11 +2888,13 @@ class OFPActionSetMplsTtl(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_DEC_MPLS_TTL,
                                 ofproto.OFP_ACTION_HEADER_SIZE)
 class OFPActionDecMplsTtl(OFPAction):
+
     """
     Decrement MPLS TTL action
 
     This action decrements the MPLS TTL.
     """
+
     def __init__(self, type_=None, len_=None):
         super(OFPActionDecMplsTtl, self).__init__()
 
@@ -2853,6 +2908,7 @@ class OFPActionDecMplsTtl(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_SET_NW_TTL,
                                 ofproto.OFP_ACTION_NW_TTL_SIZE)
 class OFPActionSetNwTtl(OFPAction):
+
     """
     Set IP TTL action
 
@@ -2864,6 +2920,7 @@ class OFPActionSetNwTtl(OFPAction):
     nw_ttl           IP TTL
     ================ ======================================================
     """
+
     def __init__(self, nw_ttl, type_=None, len_=None):
         super(OFPActionSetNwTtl, self).__init__()
         self.nw_ttl = nw_ttl
@@ -2882,11 +2939,13 @@ class OFPActionSetNwTtl(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_DEC_NW_TTL,
                                 ofproto.OFP_ACTION_HEADER_SIZE)
 class OFPActionDecNwTtl(OFPAction):
+
     """
     Decrement IP TTL action
 
     This action decrements the IP TTL.
     """
+
     def __init__(self, type_=None, len_=None):
         super(OFPActionDecNwTtl, self).__init__()
 
@@ -2896,16 +2955,45 @@ class OFPActionDecNwTtl(OFPAction):
             ofproto.OFP_ACTION_HEADER_PACK_STR, buf, offset)
         return cls()
 
+# my new action class
+
+
+@OFPAction.register_action_type(ofproto.OFPAT_SELF_LEARNING,
+                                ofproto.OFP_ACTION_SELF_LEARNING_SIZE)
+class OFPActionSelfLearning(OFPAction):
+
+    """
+    Self Learning action
+
+    This action indicates the  the packet will be learned .
+
+    """
+
+    def __init__(self, type_=None, len_=None):
+        super(OFPActionSelfLearning, self).__init__()
+
+    @classmethod
+    def parser(cls, buf, offset):
+        (type_, len_, group_id) = struct.unpack_from(
+            ofproto.OFP_ACTION_SELF_LEARNING_PACK_STR, buf, offset)
+        return cls()
+
+    # def serialize(self, buf, offset):
+    #    msg_pack_into(ofproto.OFP_ACTION_GROUP_PACK_STR, buf,
+    #                  offset, self.type, self.len, self.group_id)
+
 
 @OFPAction.register_action_type(ofproto.OFPAT_COPY_TTL_OUT,
                                 ofproto.OFP_ACTION_HEADER_SIZE)
 class OFPActionCopyTtlOut(OFPAction):
+
     """
     Copy TTL Out action
 
     This action copies the TTL from the next-to-outermost header with TTL to
     the outermost header with TTL.
     """
+
     def __init__(self, type_=None, len_=None):
         super(OFPActionCopyTtlOut, self).__init__()
 
@@ -2919,12 +3007,14 @@ class OFPActionCopyTtlOut(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_COPY_TTL_IN,
                                 ofproto.OFP_ACTION_HEADER_SIZE)
 class OFPActionCopyTtlIn(OFPAction):
+
     """
     Copy TTL In action
 
     This action copies the TTL from the outermost header with TTL to the
     next-to-outermost header with TTL.
     """
+
     def __init__(self, type_=None, len_=None):
         super(OFPActionCopyTtlIn, self).__init__()
 
@@ -2938,6 +3028,7 @@ class OFPActionCopyTtlIn(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_PUSH_VLAN,
                                 ofproto.OFP_ACTION_PUSH_SIZE)
 class OFPActionPushVlan(OFPAction):
+
     """
     Push VLAN action
 
@@ -2949,6 +3040,7 @@ class OFPActionPushVlan(OFPAction):
     ethertype        Ether type.  The default is 802.1Q. (0x8100)
     ================ ======================================================
     """
+
     def __init__(self, ethertype=ether.ETH_TYPE_8021Q, type_=None, len_=None):
         super(OFPActionPushVlan, self).__init__()
         self.ethertype = ethertype
@@ -2967,6 +3059,7 @@ class OFPActionPushVlan(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_PUSH_MPLS,
                                 ofproto.OFP_ACTION_PUSH_SIZE)
 class OFPActionPushMpls(OFPAction):
+
     """
     Push MPLS action
 
@@ -2978,6 +3071,7 @@ class OFPActionPushMpls(OFPAction):
     ethertype        Ether type
     ================ ======================================================
     """
+
     def __init__(self, ethertype=ether.ETH_TYPE_MPLS, type_=None, len_=None):
         super(OFPActionPushMpls, self).__init__()
         self.ethertype = ethertype
@@ -2996,11 +3090,13 @@ class OFPActionPushMpls(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_POP_VLAN,
                                 ofproto.OFP_ACTION_HEADER_SIZE)
 class OFPActionPopVlan(OFPAction):
+
     """
     Pop VLAN action
 
     This action pops the outermost VLAN tag from the packet.
     """
+
     def __init__(self, type_=None, len_=None):
         super(OFPActionPopVlan, self).__init__()
 
@@ -3014,11 +3110,13 @@ class OFPActionPopVlan(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_POP_MPLS,
                                 ofproto.OFP_ACTION_POP_MPLS_SIZE)
 class OFPActionPopMpls(OFPAction):
+
     """
     Pop MPLS action
 
     This action pops the MPLS header from the packet.
     """
+
     def __init__(self, ethertype=ether.ETH_TYPE_IP, type_=None, len_=None):
         super(OFPActionPopMpls, self).__init__()
         self.ethertype = ethertype
@@ -3037,6 +3135,7 @@ class OFPActionPopMpls(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_SET_FIELD,
                                 ofproto.OFP_ACTION_SET_FIELD_SIZE)
 class OFPActionSetField(OFPAction):
+
     """
     Set field action
 
@@ -3048,6 +3147,7 @@ class OFPActionSetField(OFPAction):
 
         set_field = OFPActionSetField(eth_src="00:00:00:00:00")
     """
+
     def __init__(self, field=None, **kwargs):
         # old api
         #   OFPActionSetField(field)
@@ -3160,6 +3260,7 @@ class OFPActionSetField(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_PUSH_PBB,
                                 ofproto.OFP_ACTION_PUSH_SIZE)
 class OFPActionPushPbb(OFPAction):
+
     """
     Push PBB action
 
@@ -3171,6 +3272,7 @@ class OFPActionPushPbb(OFPAction):
     ethertype        Ether type
     ================ ======================================================
     """
+
     def __init__(self, ethertype, type_=None, len_=None):
         super(OFPActionPushPbb, self).__init__()
         self.ethertype = ethertype
@@ -3189,12 +3291,14 @@ class OFPActionPushPbb(OFPAction):
 @OFPAction.register_action_type(ofproto.OFPAT_POP_PBB,
                                 ofproto.OFP_ACTION_HEADER_SIZE)
 class OFPActionPopPbb(OFPAction):
+
     """
     Pop PBB action
 
     This action pops the outermost PBB service instance header from
     the packet.
     """
+
     def __init__(self, type_=None, len_=None):
         super(OFPActionPopPbb, self).__init__()
 
@@ -3215,6 +3319,7 @@ class OFPActionPopPbb(OFPAction):
     ofproto.OFPAT_EXPERIMENTER,
     ofproto.OFP_ACTION_EXPERIMENTER_HEADER_SIZE)
 class OFPActionExperimenter(OFPAction):
+
     """
     Experimenter action
 
@@ -3252,6 +3357,7 @@ class OFPActionExperimenter(OFPAction):
 
 
 class OFPActionExperimenterUnknown(OFPActionExperimenter):
+
     def __init__(self, experimenter, data=None, type_=None, len_=None):
         super(OFPActionExperimenterUnknown,
               self).__init__(experimenter=experimenter)
@@ -3272,6 +3378,7 @@ class OFPActionExperimenterUnknown(OFPActionExperimenter):
 
 
 class OFPBucket(StringifyMixin):
+
     def __init__(self, weight=0, watch_port=ofproto.OFPP_ANY,
                  watch_group=ofproto.OFPG_ANY, actions=None, len_=None):
         super(OFPBucket, self).__init__()
@@ -3313,6 +3420,7 @@ class OFPBucket(StringifyMixin):
 
 @_set_msg_type(ofproto.OFPT_GROUP_MOD)
 class OFPGroupMod(MsgBase):
+
     """
     Modify group entry message
 
@@ -3359,6 +3467,7 @@ class OFPGroupMod(MsgBase):
                                          ofp.OFPGT_SELECT, group_id, buckets)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, command=ofproto.OFPGC_ADD,
                  type_=ofproto.OFPGT_ALL, group_id=0, buckets=[]):
         super(OFPGroupMod, self).__init__(datapath)
@@ -3380,6 +3489,7 @@ class OFPGroupMod(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_PORT_MOD)
 class OFPPortMod(MsgBase):
+
     """
     Port modification message
 
@@ -3463,6 +3573,7 @@ class OFPPortMod(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_METER_MOD)
 class OFPMeterMod(MsgBase):
+
     """
     Meter modification message
 
@@ -3490,6 +3601,7 @@ class OFPMeterMod(MsgBase):
                      | OFPMeterBandExperimenter
     ================ ======================================================
     """
+
     def __init__(self, datapath, command=ofproto.OFPMC_ADD,
                  flags=ofproto.OFPMF_KBPS, meter_id=1, bands=[]):
         super(OFPMeterMod, self).__init__(datapath)
@@ -3511,6 +3623,7 @@ class OFPMeterMod(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_TABLE_MOD)
 class OFPTableMod(MsgBase):
+
     """
     Flow table configuration message
 
@@ -3533,6 +3646,7 @@ class OFPTableMod(MsgBase):
             req = ofp_parser.OFPTableMod(datapath, 1, 3)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, table_id, config):
         super(OFPTableMod, self).__init__(datapath)
         self.table_id = table_id
@@ -3554,6 +3668,7 @@ def _set_stats_type(stats_type, stats_body_cls):
 
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPMultipartRequest(MsgBase):
+
     def __init__(self, datapath, flags):
         super(OFPMultipartRequest, self).__init__(datapath)
         self.type = self.__class__.cls_stats_type
@@ -3663,6 +3778,7 @@ class OFPDescStats(ofproto_parser.namedtuple('OFPDescStats', (
 @_set_stats_type(ofproto.OFPMP_DESC, OFPDescStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPDescStatsRequest(OFPMultipartRequest):
+
     """
     Description statistics request message
 
@@ -3683,6 +3799,7 @@ class OFPDescStatsRequest(OFPMultipartRequest):
             req = ofp_parser.OFPDescStatsRequest(datapath, 0)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, type_=None):
         super(OFPDescStatsRequest, self).__init__(datapath, flags)
 
@@ -3691,6 +3808,7 @@ class OFPDescStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_DESC, OFPDescStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPDescStatsReply(OFPMultipartReply):
+
     """
     Description statistics reply message
 
@@ -3714,11 +3832,13 @@ class OFPDescStatsReply(OFPMultipartReply):
                               body.mfr_desc, body.hw_desc, body.sw_desc,
                               body.serial_num, body.dp_desc)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPDescStatsReply, self).__init__(datapath, **kwargs)
 
 
 class OFPFlowStats(StringifyMixin):
+
     def __init__(self, table_id=None, duration_sec=None, duration_nsec=None,
                  priority=None, idle_timeout=None, hard_timeout=None,
                  flags=None, cookie=None, packet_count=None,
@@ -3770,6 +3890,7 @@ class OFPFlowStats(StringifyMixin):
 
 
 class OFPFlowStatsRequestBase(OFPMultipartRequest):
+
     def __init__(self, datapath, flags, table_id, out_port, out_group,
                  cookie, cookie_mask, match):
         super(OFPFlowStatsRequestBase, self).__init__(datapath, flags)
@@ -3793,6 +3914,7 @@ class OFPFlowStatsRequestBase(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_FLOW, OFPFlowStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPFlowStatsRequest(OFPFlowStatsRequestBase):
+
     """
     Individual flow statistics request message
 
@@ -3827,6 +3949,7 @@ class OFPFlowStatsRequest(OFPFlowStatsRequestBase):
                                                  match)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, table_id=ofproto.OFPTT_ALL,
                  out_port=ofproto.OFPP_ANY,
                  out_group=ofproto.OFPG_ANY,
@@ -3842,6 +3965,7 @@ class OFPFlowStatsRequest(OFPFlowStatsRequestBase):
 @_set_stats_type(ofproto.OFPMP_FLOW, OFPFlowStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPFlowStatsReply(OFPMultipartReply):
+
     """
     Individual flow statistics reply message
 
@@ -3874,12 +3998,14 @@ class OFPFlowStatsReply(OFPMultipartReply):
                               stat.match, stat.instructions))
             self.logger.debug('FlowStats: %s', flows)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPFlowStatsReply, self).__init__(datapath, **kwargs)
 
 
 class OFPAggregateStats(ofproto_parser.namedtuple('OFPAggregateStats', (
         'packet_count', 'byte_count', 'flow_count'))):
+
     @classmethod
     def parser(cls, buf, offset):
         agg = struct.unpack_from(
@@ -3892,6 +4018,7 @@ class OFPAggregateStats(ofproto_parser.namedtuple('OFPAggregateStats', (
 @_set_stats_type(ofproto.OFPMP_AGGREGATE, OFPAggregateStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPAggregateStatsRequest(OFPFlowStatsRequestBase):
+
     """
     Aggregate flow statistics request message
 
@@ -3927,6 +4054,7 @@ class OFPAggregateStatsRequest(OFPFlowStatsRequestBase):
                                                       match)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags, table_id, out_port, out_group,
                  cookie, cookie_mask, match, type_=None):
         super(OFPAggregateStatsRequest, self).__init__(datapath,
@@ -3943,6 +4071,7 @@ class OFPAggregateStatsRequest(OFPFlowStatsRequestBase):
 @_set_stats_type(ofproto.OFPMP_AGGREGATE, OFPAggregateStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPAggregateStatsReply(OFPMultipartReply):
+
     """
     Aggregate flow statistics reply message
 
@@ -3966,6 +4095,7 @@ class OFPAggregateStatsReply(OFPMultipartReply):
                               body.packet_count, body.byte_count,
                               body.flow_count)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPAggregateStatsReply, self).__init__(datapath, **kwargs)
 
@@ -3973,6 +4103,7 @@ class OFPAggregateStatsReply(OFPMultipartReply):
 class OFPTableStats(ofproto_parser.namedtuple('OFPTableStats', (
         'table_id', 'active_count', 'lookup_count',
         'matched_count'))):
+
     @classmethod
     def parser(cls, buf, offset):
         tbl = struct.unpack_from(ofproto.OFP_TABLE_STATS_PACK_STR,
@@ -3985,6 +4116,7 @@ class OFPTableStats(ofproto_parser.namedtuple('OFPTableStats', (
 @_set_stats_type(ofproto.OFPMP_TABLE, OFPTableStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPTableStatsRequest(OFPMultipartRequest):
+
     """
     Table statistics request message
 
@@ -4005,6 +4137,7 @@ class OFPTableStatsRequest(OFPMultipartRequest):
             req = ofp_parser.OFPTableStatsRequest(datapath, 0)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, type_=None):
         super(OFPTableStatsRequest, self).__init__(datapath, flags)
 
@@ -4013,6 +4146,7 @@ class OFPTableStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_TABLE, OFPTableStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPTableStatsReply(OFPMultipartReply):
+
     """
     Table statistics reply message
 
@@ -4036,6 +4170,7 @@ class OFPTableStatsReply(OFPMultipartReply):
                                stat.lookup_count, stat.matched_count))
              self.logger.debug('TableStats: %s', tables)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPTableStatsReply, self).__init__(datapath, **kwargs)
 
@@ -4045,6 +4180,7 @@ class OFPPortStats(ofproto_parser.namedtuple('OFPPortStats', (
         'rx_dropped', 'tx_dropped', 'rx_errors', 'tx_errors',
         'rx_frame_err', 'rx_over_err', 'rx_crc_err', 'collisions',
         'duration_sec', 'duration_nsec'))):
+
     @classmethod
     def parser(cls, buf, offset):
         port = struct.unpack_from(ofproto.OFP_PORT_STATS_PACK_STR,
@@ -4057,6 +4193,7 @@ class OFPPortStats(ofproto_parser.namedtuple('OFPPortStats', (
 @_set_stats_type(ofproto.OFPMP_PORT_STATS, OFPPortStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPPortStatsRequest(OFPMultipartRequest):
+
     """
     Port statistics request message
 
@@ -4079,6 +4216,7 @@ class OFPPortStatsRequest(OFPMultipartRequest):
             req = ofp_parser.OFPPortStatsRequest(datapath, 0, ofp.OFPP_ANY)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, port_no=ofproto.OFPP_ANY,
                  type_=None):
         super(OFPPortStatsRequest, self).__init__(datapath, flags)
@@ -4095,6 +4233,7 @@ class OFPPortStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_PORT_STATS, OFPPortStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPPortStatsReply(OFPMultipartReply):
+
     """
     Port statistics reply message
 
@@ -4129,6 +4268,7 @@ class OFPPortStatsReply(OFPMultipartReply):
                               stat.duration_sec, stat.duration_nsec))
         self.logger.debug('PortStats: %s', ports)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPPortStatsReply, self).__init__(datapath, **kwargs)
 
@@ -4136,6 +4276,7 @@ class OFPPortStatsReply(OFPMultipartReply):
 class OFPQueueStats(ofproto_parser.namedtuple('OFPQueueStats', (
         'port_no', 'queue_id', 'tx_bytes', 'tx_packets', 'tx_errors',
         'duration_sec', 'duration_nsec'))):
+
     @classmethod
     def parser(cls, buf, offset):
         queue = struct.unpack_from(ofproto.OFP_QUEUE_STATS_PACK_STR,
@@ -4148,6 +4289,7 @@ class OFPQueueStats(ofproto_parser.namedtuple('OFPQueueStats', (
 @_set_stats_type(ofproto.OFPMP_QUEUE, OFPQueueStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPQueueStatsRequest(OFPMultipartRequest):
+
     """
     Queue statistics request message
 
@@ -4171,6 +4313,7 @@ class OFPQueueStatsRequest(OFPMultipartRequest):
                                                   ofp.OFPQ_ALL)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, port_no=ofproto.OFPP_ANY,
                  queue_id=ofproto.OFPQ_ALL, type_=None):
         super(OFPQueueStatsRequest, self).__init__(datapath, flags)
@@ -4188,6 +4331,7 @@ class OFPQueueStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_QUEUE, OFPQueueStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPQueueStatsReply(OFPMultipartReply):
+
     """
     Queue statistics reply message
 
@@ -4214,11 +4358,13 @@ class OFPQueueStatsReply(OFPMultipartReply):
                                stat.duration_sec, stat.duration_nsec))
             self.logger.debug('QueueStats: %s', queues)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPQueueStatsReply, self).__init__(datapath, **kwargs)
 
 
 class OFPBucketCounter(StringifyMixin):
+
     def __init__(self, packet_count, byte_count):
         super(OFPBucketCounter, self).__init__()
         self.packet_count = packet_count
@@ -4232,6 +4378,7 @@ class OFPBucketCounter(StringifyMixin):
 
 
 class OFPGroupStats(StringifyMixin):
+
     def __init__(self, length=None, group_id=None, ref_count=None,
                  packet_count=None, byte_count=None, duration_sec=None,
                  duration_nsec=None, bucket_stats=None):
@@ -4265,6 +4412,7 @@ class OFPGroupStats(StringifyMixin):
 @_set_stats_type(ofproto.OFPMP_GROUP, OFPGroupStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPGroupStatsRequest(OFPMultipartRequest):
+
     """
     Group statistics request message
 
@@ -4287,6 +4435,7 @@ class OFPGroupStatsRequest(OFPMultipartRequest):
             req = ofp_parser.OFPGroupStatsRequest(datapath, 0, ofp.OFPG_ALL)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, group_id=ofproto.OFPG_ALL,
                  type_=None):
         super(OFPGroupStatsRequest, self).__init__(datapath, flags)
@@ -4303,6 +4452,7 @@ class OFPGroupStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_GROUP, OFPGroupStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPGroupStatsReply(OFPMultipartReply):
+
     """
     Group statistics reply message
 
@@ -4329,11 +4479,13 @@ class OFPGroupStatsReply(OFPMultipartReply):
                                stat.duration_nsec))
             self.logger.debug('GroupStats: %s', groups)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPGroupStatsReply, self).__init__(datapath, **kwargs)
 
 
 class OFPGroupDescStats(StringifyMixin):
+
     def __init__(self, type_=None, group_id=None, buckets=None, length=None):
         super(OFPGroupDescStats, self).__init__()
         self.type = type_
@@ -4363,6 +4515,7 @@ class OFPGroupDescStats(StringifyMixin):
 @_set_stats_type(ofproto.OFPMP_GROUP_DESC, OFPGroupDescStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPGroupDescStatsRequest(OFPMultipartRequest):
+
     """
     Group description request message
 
@@ -4383,6 +4536,7 @@ class OFPGroupDescStatsRequest(OFPMultipartRequest):
             req = ofp_parser.OFPGroupDescStatsRequest(datapath, 0)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, type_=None):
         super(OFPGroupDescStatsRequest, self).__init__(datapath, flags)
 
@@ -4391,6 +4545,7 @@ class OFPGroupDescStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_GROUP_DESC, OFPGroupDescStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPGroupDescStatsReply(OFPMultipartReply):
+
     """
     Group description reply message
 
@@ -4414,13 +4569,15 @@ class OFPGroupDescStatsReply(OFPMultipartReply):
                               stat.bucket))
             self.logger.debug('GroupDescStats: %s', groups)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPGroupDescStatsReply, self).__init__(datapath, **kwargs)
 
 
 class OFPGroupFeaturesStats(ofproto_parser.namedtuple('OFPGroupFeaturesStats',
-                            ('types', 'capabilities', 'max_groups',
-                             'actions'))):
+                                                      ('types', 'capabilities', 'max_groups',
+                                                       'actions'))):
+
     @classmethod
     def parser(cls, buf, offset):
         group_features = struct.unpack_from(
@@ -4437,6 +4594,7 @@ class OFPGroupFeaturesStats(ofproto_parser.namedtuple('OFPGroupFeaturesStats',
 @_set_stats_type(ofproto.OFPMP_GROUP_FEATURES, OFPGroupFeaturesStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPGroupFeaturesStatsRequest(OFPMultipartRequest):
+
     """
     Group features request message
 
@@ -4458,6 +4616,7 @@ class OFPGroupFeaturesStatsRequest(OFPMultipartRequest):
             req = ofp_parser.OFPGroupFeaturesStatsRequest(datapath, 0)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, type_=None):
         super(OFPGroupFeaturesStatsRequest, self).__init__(datapath, flags)
 
@@ -4466,6 +4625,7 @@ class OFPGroupFeaturesStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_GROUP_FEATURES, OFPGroupFeaturesStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPGroupFeaturesStatsReply(OFPMultipartReply):
+
     """
     Group features reply message
 
@@ -4489,11 +4649,13 @@ class OFPGroupFeaturesStatsReply(OFPMultipartReply):
                               body.types, body.capabilities,
                               body.max_groups, body.actions)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPGroupFeaturesStatsReply, self).__init__(datapath, **kwargs)
 
 
 class OFPMeterBandStats(StringifyMixin):
+
     def __init__(self, packet_band_count, byte_band_count):
         super(OFPMeterBandStats, self).__init__()
         self.packet_band_count = packet_band_count
@@ -4507,6 +4669,7 @@ class OFPMeterBandStats(StringifyMixin):
 
 
 class OFPMeterStats(StringifyMixin):
+
     def __init__(self, meter_id=None, flow_count=None, packet_in_count=None,
                  byte_in_count=None, duration_sec=None, duration_nsec=None,
                  band_stats=None, len_=None):
@@ -4545,6 +4708,7 @@ class OFPMeterStats(StringifyMixin):
 @_set_stats_type(ofproto.OFPMP_METER, OFPMeterStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPMeterStatsRequest(OFPMultipartRequest):
+
     """
     Meter statistics request message
 
@@ -4567,6 +4731,7 @@ class OFPMeterStatsRequest(OFPMultipartRequest):
             req = ofp_parser.OFPMeterStatsRequest(datapath, 0, ofp.OFPM_ALL)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, meter_id=ofproto.OFPM_ALL,
                  type_=None):
         super(OFPMeterStatsRequest, self).__init__(datapath, flags)
@@ -4583,6 +4748,7 @@ class OFPMeterStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_METER, OFPMeterStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPMeterStatsReply(OFPMultipartReply):
+
     """
     Meter statistics reply message
 
@@ -4610,11 +4776,13 @@ class OFPMeterStatsReply(OFPMultipartReply):
                                stat.band_stats))
             self.logger.debug('MeterStats: %s', meters)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPMeterStatsReply, self).__init__(datapath, **kwargs)
 
 
 class OFPMeterBand(StringifyMixin):
+
     def __init__(self, type_, len_):
         super(OFPMeterBand, self).__init__()
         self.type = type_
@@ -4650,6 +4818,7 @@ class OFPMeterBandHeader(OFPMeterBand):
 @OFPMeterBandHeader.register_meter_band_type(
     ofproto.OFPMBT_DROP, ofproto.OFP_METER_BAND_DROP_SIZE)
 class OFPMeterBandDrop(OFPMeterBandHeader):
+
     def __init__(self, rate=0, burst_size=0, type_=None, len_=None):
         super(OFPMeterBandDrop, self).__init__()
         self.rate = rate
@@ -4672,6 +4841,7 @@ class OFPMeterBandDrop(OFPMeterBandHeader):
     ofproto.OFPMBT_DSCP_REMARK,
     ofproto.OFP_METER_BAND_DSCP_REMARK_SIZE)
 class OFPMeterBandDscpRemark(OFPMeterBandHeader):
+
     def __init__(self, rate=0, burst_size=0, prec_level=0,
                  type_=None, len_=None):
         super(OFPMeterBandDscpRemark, self).__init__()
@@ -4697,6 +4867,7 @@ class OFPMeterBandDscpRemark(OFPMeterBandHeader):
     ofproto.OFPMBT_EXPERIMENTER,
     ofproto.OFP_METER_BAND_EXPERIMENTER_SIZE)
 class OFPMeterBandExperimenter(OFPMeterBandHeader):
+
     def __init__(self, rate=0, burst_size=0, experimenter=None,
                  type_=None, len_=None):
         super(OFPMeterBandExperimenter, self).__init__()
@@ -4719,6 +4890,7 @@ class OFPMeterBandExperimenter(OFPMeterBandHeader):
 
 
 class OFPMeterConfigStats(StringifyMixin):
+
     def __init__(self, flags=None, meter_id=None, bands=None, length=None):
         super(OFPMeterConfigStats, self).__init__()
         self.length = None
@@ -4749,6 +4921,7 @@ class OFPMeterConfigStats(StringifyMixin):
 @_set_stats_type(ofproto.OFPMP_METER_CONFIG, OFPMeterConfigStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPMeterConfigStatsRequest(OFPMultipartRequest):
+
     """
     Meter configuration statistics request message
 
@@ -4772,6 +4945,7 @@ class OFPMeterConfigStatsRequest(OFPMultipartRequest):
                                                         ofp.OFPM_ALL)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, meter_id=ofproto.OFPM_ALL,
                  type_=None):
         super(OFPMeterConfigStatsRequest, self).__init__(datapath, flags)
@@ -4788,6 +4962,7 @@ class OFPMeterConfigStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_METER_CONFIG, OFPMeterConfigStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPMeterConfigStatsReply(OFPMultipartReply):
+
     """
     Meter configuration statistics reply message
 
@@ -4812,13 +4987,15 @@ class OFPMeterConfigStatsReply(OFPMultipartReply):
                                 stat.bands))
             self.logger.debug('MeterConfigStats: %s', configs)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPMeterConfigStatsReply, self).__init__(datapath, **kwargs)
 
 
 class OFPMeterFeaturesStats(ofproto_parser.namedtuple('OFPMeterFeaturesStats',
-                            ('max_meter', 'band_types', 'capabilities',
-                             'max_bands', 'max_color'))):
+                                                      ('max_meter', 'band_types', 'capabilities',
+                                                       'max_bands', 'max_color'))):
+
     @classmethod
     def parser(cls, buf, offset):
         meter_features = struct.unpack_from(
@@ -4831,6 +5008,7 @@ class OFPMeterFeaturesStats(ofproto_parser.namedtuple('OFPMeterFeaturesStats',
 @_set_stats_type(ofproto.OFPMP_METER_FEATURES, OFPMeterFeaturesStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPMeterFeaturesStatsRequest(OFPMultipartRequest):
+
     """
     Meter features statistics request message
 
@@ -4851,6 +5029,7 @@ class OFPMeterFeaturesStatsRequest(OFPMultipartRequest):
             req = ofp_parser.OFPMeterFeaturesStatsRequest(datapath, 0)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, type_=None):
         super(OFPMeterFeaturesStatsRequest, self).__init__(datapath, flags)
 
@@ -4859,6 +5038,7 @@ class OFPMeterFeaturesStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_METER_FEATURES, OFPMeterFeaturesStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPMeterFeaturesStatsReply(OFPMultipartReply):
+
     """
     Meter features statistics reply message
 
@@ -4885,6 +5065,7 @@ class OFPMeterFeaturesStatsReply(OFPMultipartReply):
                                  stat.max_color))
             self.logger.debug('MeterFeaturesStats: %s', configs)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPMeterFeaturesStatsReply, self).__init__(datapath, **kwargs)
 
@@ -4989,6 +5170,7 @@ class OFPTableFeatureProp(StringifyMixin):
 
 
 class OFPTableFeaturePropUnknown(OFPTableFeatureProp):
+
     def __init__(self, type_, length=None, data=None):
         super(OFPTableFeaturePropUnknown, self).__init__(type_, length)
         self.data = data
@@ -5030,6 +5212,7 @@ class OFPInstructionId(StringifyMixin):
 @OFPTableFeatureProp.register_type(ofproto.OFPTFPT_INSTRUCTIONS)
 @OFPTableFeatureProp.register_type(ofproto.OFPTFPT_INSTRUCTIONS_MISS)
 class OFPTableFeaturePropInstructions(OFPTableFeatureProp):
+
     def __init__(self, type_, instruction_ids=[], length=None):
         super(OFPTableFeaturePropInstructions, self).__init__(type_, length)
         self.instruction_ids = instruction_ids
@@ -5119,6 +5302,7 @@ class OFPActionId(StringifyMixin):
 @OFPTableFeatureProp.register_type(ofproto.OFPTFPT_APPLY_ACTIONS)
 @OFPTableFeatureProp.register_type(ofproto.OFPTFPT_APPLY_ACTIONS_MISS)
 class OFPTableFeaturePropActions(OFPTableFeatureProp):
+
     def __init__(self, type_, action_ids=[], length=None):
         super(OFPTableFeaturePropActions, self).__init__(type_, length)
         self.action_ids = action_ids
@@ -5210,6 +5394,7 @@ class OFPOxmId(StringifyMixin):
 
 
 class OFPExperimenterOxmId(OFPOxmId):
+
     def __init__(self, type_, exp_id, hasmask=False, length=None):
         super(OFPExperimenterOxmId, self).__init__(type_=type_,
                                                    hasmask=hasmask,
@@ -5229,6 +5414,7 @@ class OFPExperimenterOxmId(OFPOxmId):
 @OFPTableFeatureProp.register_type(ofproto.OFPTFPT_APPLY_SETFIELD)
 @OFPTableFeatureProp.register_type(ofproto.OFPTFPT_APPLY_SETFIELD_MISS)
 class OFPTableFeaturePropOxm(OFPTableFeatureProp):
+
     def __init__(self, type_, oxm_ids=[], length=None):
         super(OFPTableFeaturePropOxm, self).__init__(type_, length)
         self.oxm_ids = oxm_ids
@@ -5303,6 +5489,7 @@ class OFPTableFeaturePropExperimenter(OFPTableFeatureProp):
 @_set_stats_type(ofproto.OFPMP_TABLE_FEATURES, OFPTableFeaturesStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPTableFeaturesStatsRequest(OFPMultipartRequest):
+
     """
     Table features statistics request message
 
@@ -5315,6 +5502,7 @@ class OFPTableFeaturesStatsRequest(OFPMultipartRequest):
                      The default is [].
     ================ ======================================================
     """
+
     def __init__(self, datapath, flags=0,
                  body=[],
                  type_=None):
@@ -5332,6 +5520,7 @@ class OFPTableFeaturesStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_TABLE_FEATURES, OFPTableFeaturesStats)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPTableFeaturesStatsReply(OFPMultipartReply):
+
     """
     Table features statistics reply message
 
@@ -5344,6 +5533,7 @@ class OFPTableFeaturesStatsReply(OFPMultipartReply):
     body             List of ``OFPTableFeaturesStats`` instance
     ================ ======================================================
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPTableFeaturesStatsReply, self).__init__(datapath, **kwargs)
 
@@ -5351,6 +5541,7 @@ class OFPTableFeaturesStatsReply(OFPMultipartReply):
 @_set_stats_type(ofproto.OFPMP_PORT_DESC, OFPPort)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPPortDescStatsRequest(OFPMultipartRequest):
+
     """
     Port description request message
 
@@ -5370,6 +5561,7 @@ class OFPPortDescStatsRequest(OFPMultipartRequest):
             req = ofp_parser.OFPPortDescStatsRequest(datapath, 0)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, flags=0, type_=None):
         super(OFPPortDescStatsRequest, self).__init__(datapath, flags)
 
@@ -5378,6 +5570,7 @@ class OFPPortDescStatsRequest(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_PORT_DESC, OFPPort)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPPortDescStatsReply(OFPMultipartReply):
+
     """
     Port description reply message
 
@@ -5406,6 +5599,7 @@ class OFPPortDescStatsReply(OFPMultipartReply):
                               p.max_speed))
             self.logger.debug('OFPPortDescStatsReply received: %s', ports)
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPPortDescStatsReply, self).__init__(datapath, **kwargs)
 
@@ -5413,6 +5607,7 @@ class OFPPortDescStatsReply(OFPMultipartReply):
 class OFPExperimenterMultipart(ofproto_parser.namedtuple(
                                'OFPExperimenterMultipart',
                                ('experimenter', 'exp_type', 'data'))):
+
     """
     The body of OFPExperimenterStatsReply multipart messages.
 
@@ -5446,6 +5641,7 @@ class OFPExperimenterMultipart(ofproto_parser.namedtuple(
 
 
 class OFPExperimenterStatsRequestBase(OFPMultipartRequest):
+
     def __init__(self, datapath, flags,
                  experimenter, exp_type,
                  type_=None):
@@ -5457,6 +5653,7 @@ class OFPExperimenterStatsRequestBase(OFPMultipartRequest):
 @_set_stats_type(ofproto.OFPMP_EXPERIMENTER, OFPExperimenterMultipart)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class OFPExperimenterStatsRequest(OFPExperimenterStatsRequestBase):
+
     """
     Experimenter multipart request message
 
@@ -5469,6 +5666,7 @@ class OFPExperimenterStatsRequest(OFPExperimenterStatsRequestBase):
     data             Experimenter defined additional data
     ================ ======================================================
     """
+
     def __init__(self, datapath, flags,
                  experimenter, exp_type, data,
                  type_=None):
@@ -5487,6 +5685,7 @@ class OFPExperimenterStatsRequest(OFPExperimenterStatsRequestBase):
 # NOTE: we use OFPMatch while on-wire does not ofp_match.
 # (OF1.4 version uses ofp_match.)
 class ONFFlowMonitorRequest(StringifyMixin):
+
     def __init__(self, id_, flags,
                  match=OFPMatch(),
                  out_port=ofproto.OFPP_ANY,
@@ -5525,6 +5724,7 @@ class ONFFlowMonitorRequest(StringifyMixin):
 @_set_stats_type(ofproto.OFPMP_EXPERIMENTER, OFPExperimenterMultipart)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REQUEST)
 class ONFFlowMonitorStatsRequest(OFPExperimenterStatsRequestBase):
+
     """
     ================ ======================================================
     Attribute        Description
@@ -5533,6 +5733,7 @@ class ONFFlowMonitorStatsRequest(OFPExperimenterStatsRequestBase):
     body             List of ONFFlowMonitorRequest instances
     ================ ======================================================
     """
+
     def __init__(self, datapath, flags, body=[],
                  type_=None, experimenter=None, exp_type=None):
         super(ONFFlowMonitorStatsRequest,
@@ -5555,6 +5756,7 @@ class ONFFlowMonitorStatsRequest(OFPExperimenterStatsRequestBase):
 @_set_stats_type(ofproto.OFPMP_EXPERIMENTER, OFPExperimenterMultipart)
 @_set_msg_type(ofproto.OFPT_MULTIPART_REPLY)
 class OFPExperimenterStatsReply(OFPMultipartReply):
+
     """
     Experimenter multipart reply message
 
@@ -5564,12 +5766,14 @@ class OFPExperimenterStatsReply(OFPMultipartReply):
     body             An ``OFPExperimenterMultipart`` instance
     ================ ======================================================
     """
+
     def __init__(self, datapath, type_=None, **kwargs):
         super(OFPExperimenterStatsReply, self).__init__(datapath, **kwargs)
 
 
 @_set_msg_type(ofproto.OFPT_BARRIER_REQUEST)
 class OFPBarrierRequest(MsgBase):
+
     """
     Barrier request message
 
@@ -5584,6 +5788,7 @@ class OFPBarrierRequest(MsgBase):
             req = ofp_parser.OFPBarrierRequest(datapath)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath):
         super(OFPBarrierRequest, self).__init__(datapath)
 
@@ -5591,6 +5796,7 @@ class OFPBarrierRequest(MsgBase):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_BARRIER_REPLY)
 class OFPBarrierReply(MsgBase):
+
     """
     Barrier reply message
 
@@ -5602,12 +5808,14 @@ class OFPBarrierReply(MsgBase):
         def barrier_reply_handler(self, ev):
             self.logger.debug('OFPBarrierReply received')
     """
+
     def __init__(self, datapath):
         super(OFPBarrierReply, self).__init__(datapath)
 
 
 @_set_msg_type(ofproto.OFPT_QUEUE_GET_CONFIG_REQUEST)
 class OFPQueueGetConfigRequest(MsgBase):
+
     """
     Queue configuration request message
 
@@ -5626,6 +5834,7 @@ class OFPQueueGetConfigRequest(MsgBase):
             req = ofp_parser.OFPQueueGetConfigRequest(datapath, ofp.OFPP_ANY)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, port):
         super(OFPQueueGetConfigRequest, self).__init__(datapath)
         self.port = port
@@ -5636,6 +5845,7 @@ class OFPQueueGetConfigRequest(MsgBase):
 
 
 class OFPQueuePropHeader(StringifyMixin):
+
     def __init__(self, property_, len_):
         self.property = property_
         self.len = len_
@@ -5676,6 +5886,7 @@ class OFPQueueProp(OFPQueuePropHeader):
     ofproto.OFPQT_MIN_RATE,
     ofproto.OFP_QUEUE_PROP_MIN_RATE_SIZE)
 class OFPQueuePropMinRate(OFPQueueProp):
+
     def __init__(self, rate, property_=None, len_=None):
         super(OFPQueuePropMinRate, self).__init__()
         self.rate = rate
@@ -5691,6 +5902,7 @@ class OFPQueuePropMinRate(OFPQueueProp):
     ofproto.OFPQT_MAX_RATE,
     ofproto.OFP_QUEUE_PROP_MAX_RATE_SIZE)
 class OFPQueuePropMaxRate(OFPQueueProp):
+
     def __init__(self, rate, property_=None, len_=None):
         super(OFPQueuePropMaxRate, self).__init__()
         self.rate = rate
@@ -5706,6 +5918,7 @@ class OFPQueuePropMaxRate(OFPQueueProp):
 
 
 class OFPPacketQueue(StringifyMixin):
+
     def __init__(self, queue_id, port, properties, len_=None):
         super(OFPPacketQueue, self).__init__()
         self.queue_id = queue_id
@@ -5733,6 +5946,7 @@ class OFPPacketQueue(StringifyMixin):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_QUEUE_GET_CONFIG_REPLY)
 class OFPQueueGetConfigReply(MsgBase):
+
     """
     Queue configuration reply message
 
@@ -5755,6 +5969,7 @@ class OFPQueueGetConfigReply(MsgBase):
                               'port=%s queues=%s',
                               msg.port, msg.queues)
     """
+
     def __init__(self, datapath, queues=None, port=None):
         super(OFPQueueGetConfigReply, self).__init__(datapath)
         self.queues = queues
@@ -5781,6 +5996,7 @@ class OFPQueueGetConfigReply(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_ROLE_REQUEST)
 class OFPRoleRequest(MsgBase):
+
     """
     Role request message
 
@@ -5807,6 +6023,7 @@ class OFPRoleRequest(MsgBase):
             req = ofp_parser.OFPRoleRequest(datapath, ofp.OFPCR_ROLE_EQUAL, 0)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath, role=None, generation_id=None):
         super(OFPRoleRequest, self).__init__(datapath)
         self.role = role
@@ -5823,6 +6040,7 @@ class OFPRoleRequest(MsgBase):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_ROLE_REPLY)
 class OFPRoleReply(MsgBase):
+
     """
     Role reply message
 
@@ -5862,6 +6080,7 @@ class OFPRoleReply(MsgBase):
                               'role=%s generation_id=%d',
                               role, msg.generation_id)
     """
+
     def __init__(self, datapath, role=None, generation_id=None):
         super(OFPRoleReply, self).__init__(datapath)
         self.role = role
@@ -5880,6 +6099,7 @@ class OFPRoleReply(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_GET_ASYNC_REQUEST)
 class OFPGetAsyncRequest(MsgBase):
+
     """
     Get asynchronous configuration request message
 
@@ -5893,6 +6113,7 @@ class OFPGetAsyncRequest(MsgBase):
             req = ofp_parser.OFPGetAsyncRequest(datapath)
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath):
         super(OFPGetAsyncRequest, self).__init__(datapath)
 
@@ -5900,6 +6121,7 @@ class OFPGetAsyncRequest(MsgBase):
 @_register_parser
 @_set_msg_type(ofproto.OFPT_GET_ASYNC_REPLY)
 class OFPGetAsyncReply(MsgBase):
+
     """
     Get asynchronous configuration reply message
 
@@ -5949,6 +6171,7 @@ class OFPGetAsyncReply(MsgBase):
                               msg.flow_removed_mask[0],
                               msg.flow_removed_mask[1])
     """
+
     def __init__(self, datapath, packet_in_mask=None, port_status_mask=None,
                  flow_removed_mask=None):
         super(OFPGetAsyncReply, self).__init__(datapath)
@@ -5974,6 +6197,7 @@ class OFPGetAsyncReply(MsgBase):
 
 @_set_msg_type(ofproto.OFPT_SET_ASYNC)
 class OFPSetAsync(MsgBase):
+
     """
     Set asynchronous configuration message
 
@@ -6024,6 +6248,7 @@ class OFPSetAsync(MsgBase):
                                          [flow_removed_mask, 0])
             datapath.send_msg(req)
     """
+
     def __init__(self, datapath,
                  packet_in_mask, port_status_mask, flow_removed_mask):
         super(OFPSetAsync, self).__init__(datapath)
