@@ -92,15 +92,15 @@ OFPPS_LIVE = 1 << 2             # Live for Fast Failover Group.
 # enum ofp_port_no
 OFPP_MAX = 0xffffff00
 OFPP_IN_PORT = 0xfffffff8       # Send the packet out the input port. This
-                                # virtual port must be explicitly used
-                                # in order to send back out of the input
-                                # port.
+# virtual port must be explicitly used
+# in order to send back out of the input
+# port.
 OFPP_TABLE = 0xfffffff9         # Perform actions in flow table.
-                                # NB: This can only be the destination
-                                # port for packet-out messages.
+# NB: This can only be the destination
+# port for packet-out messages.
 OFPP_NORMAL = 0xfffffffa        # Process with normal L2/L3 switching.
 OFPP_FLOOD = 0xfffffffb         # All physical ports except input port and
-                                # those disabled by STP.
+# those disabled by STP.
 OFPP_ALL = 0xfffffffc           # All physical ports except input port.
 OFPP_CONTROLLER = 0xfffffffd    # Send to controller.
 OFPP_LOCAL = 0xfffffffe         # Local openflow "port".
@@ -200,12 +200,12 @@ assert (calcsize(OFP_OXM_EXPERIMENTER_HEADER_PACK_STR) ==
 # enum ofp_instruction_type
 OFPIT_GOTO_TABLE = 1            # Setup the next table in the lookup pipeline.
 OFPIT_WRITE_METADATA = 2        # Setup the metadata field for use later in
-                                # pipeline.
+# pipeline.
 OFPIT_WRITE_ACTIONS = 3         # Write the action(s) onto the datapath
-                                # action set
+# action set
 OFPIT_APPLY_ACTIONS = 4         # Applies the action(s) immediately
 OFPIT_CLEAR_ACTIONS = 5         # Clears all actions from the datapath action
-                                # set
+# set
 OFPIT_METER = 6                 # Apply meter (rate limiter)
 OFPIT_EXPERIMENTER = 0xFFFF     # Experimenter instruction
 
@@ -235,9 +235,9 @@ assert calcsize(OFP_INSTRUCTION_METER_PACK_STR) == OFP_INSTRUCTION_METER_SIZE
 # enum ofp_action_type
 OFPAT_OUTPUT = 0                # Output to switch port.
 OFPAT_COPY_TTL_OUT = 11         # Copy TTL "outwards" -- from
-                                # next-to-outermost to outermost
+# next-to-outermost to outermost
 OFPAT_COPY_TTL_IN = 12          # Copy TTL "inwards" -- from outermost to
-                                # next-to-outermost
+# next-to-outermost
 OFPAT_SET_MPLS_TTL = 15         # MPLS TTL.
 OFPAT_DEC_MPLS_TTL = 16         # Decrement MPLS TTL
 OFPAT_PUSH_VLAN = 17            # Push a new VLAN tag
@@ -253,6 +253,7 @@ OFPAT_PUSH_PBB = 26             # Push a new PBB service tag (I-TAG)
 OFPAT_POP_PBB = 27              # Pop the outer PBB service tag (I-TAG)
 OFPAT_EXPERIMENTER = 0xffff
 
+
 # struct ofp_action_header
 OFP_ACTION_HEADER_PACK_STR = '!HH4x'
 OFP_ACTION_HEADER_SIZE = 8
@@ -265,10 +266,10 @@ assert calcsize(OFP_ACTION_OUTPUT_PACK_STR) == OFP_ACTION_OUTPUT_SIZE
 
 # enum ofp_controller_max_len
 OFPCML_MAX = 0xffe5         # maximum max_len value which can be used to
-                            # request a specific byte length.
+# request a specific byte length.
 OFPCML_NO_BUFFER = 0xffff   # indicates that no buffering should be
-                            # applied and the whole packet is to be
-                            # sent to the controller.
+# applied and the whole packet is to be
+# sent to the controller.
 
 # struct ofp_action_group
 OFP_ACTION_GROUP_PACK_STR = '!HHI'
@@ -367,7 +368,7 @@ OFP_DEFAULT_PRIORITY = 0x8000
 
 # enum ofp_flow_mod_flags
 OFPFF_SEND_FLOW_REM = 1 << 0    # Send flow removed message when flow
-                                # expires or is deleted.
+# expires or is deleted.
 OFPFF_CHECK_OVERLAP = 1 << 1    # Check for overlapping entries first.
 OFPFF_RESET_COUNTS = 1 << 2     # Reset flow packet and byte counts.
 OFPFF_NO_PKT_COUNTS = 1 << 3    # Don't keep track of packet count.
@@ -389,8 +390,8 @@ OFPG_MAX = 0xffffff00   # Last usable group number.
 # Fake groups
 OFPG_ALL = 0xfffffffc   # Represents all groups for group delete commands.
 OFPG_ANY = 0xffffffff   # Wildcard group used only for flow stats requests.
-                        # Selects all flows regardless of group
-                        # (including flows with no group).
+# Selects all flows regardless of group
+# (including flows with no group).
 
 # enum ofp_group_type
 OFPGT_ALL = 0       # All (multicast/broadcast) group.
@@ -420,7 +421,7 @@ OFPM_MAX = 0xffff0000
 OFPM_SLOWPATH = 0xfffffffd      # Meter for slow datapath, if any.
 OFPM_CONTROLLER = 0xfffffffe    # Meter for controller connection.
 OFPM_ALL = 0xffffffff           # Represents all meters for stat requests
-                                # commands.
+# commands.
 
 # enum ofp_meter_mod_command
 OFPMC_ADD = 0       # New meter.
@@ -890,24 +891,24 @@ OFPHFC_EPERM = 1            # Permissions error.
 OFPBRC_BAD_VERSION = 0                  # ofp_header.version not supported.
 OFPBRC_BAD_TYPE = 1                     # ofp_header.type not supported.
 OFPBRC_BAD_MULTIPART = 2                # ofp_multipart_request.type not
-                                        # supported.
+# supported.
 OFPBRC_BAD_EXPERIMENTER = 3             # Experimenter id not supported
-                                        # (in ofp_experimenter_header
-                                        # or ofp_multipart_request or
-                                        # ofp_multipart_reply).
+# (in ofp_experimenter_header
+# or ofp_multipart_request or
+# ofp_multipart_reply).
 OFPBRC_BAD_EXP_TYPE = 4                 # Experimenter type not supported.
 OFPBRC_EPERM = 5                        # Permissions error.
 OFPBRC_BAD_LEN = 6                      # Wrong request length for type.
 OFPBRC_BUFFER_EMPTY = 7                 # Specified buffer has already been
-                                        # used.
+# used.
 OFPBRC_BUFFER_UNKNOWN = 8               # Specified buffer does not exist.
 OFPBRC_BAD_TABLE_ID = 9                 # Specified table-id invalid or does
-                                        # not exist.
+# not exist.
 OFPBRC_IS_SLAVE = 10                    # Denied because controller is slave.
 OFPBRC_BAD_PORT = 11                    # Invalid port.
 OFPBRC_BAD_PACKET = 12                  # Invalid packet in packet-out
 OFPBRC_MULTIPART_BUFFER_OVERFLOW = 13   # ofp_multipart_request
-                                        # overflowed the assigned buffer.
+# overflowed the assigned buffer.
 
 # enum ofp_bad_action_code
 OFPBAC_BAD_TYPE = 0             # Unknown action type.
@@ -921,10 +922,10 @@ OFPBAC_TOO_MANY = 7             # Can't handle this many actions.
 OFPBAC_BAD_QUEUE = 8            # Problem validating output queue.
 OFPBAC_BAD_OUT_GROUP = 9        # Invalid group id in forward action.
 OFPBAC_MATCH_INCONSISTENT = 10  # Action can't apply for this match,
-                                # or Set-Field missing prerequisite.
+# or Set-Field missing prerequisite.
 OFPBAC_UNSUPPORTED_ORDER = 11   # Action order is unsupported for
-                                # the action list in an Apply-Actions
-                                # instruction
+# the action list in an Apply-Actions
+# instruction
 OFPBAC_BAD_TAG = 12             # Actions uses an unsupported tag/encap.
 OFPBAC_BAD_SET_TYPE = 13        # Unsupported type in SET_FIELD action.
 OFPBAC_BAD_SET_LEN = 14         # Length problem in SET_FIELD action.
@@ -933,11 +934,11 @@ OFPBAC_BAD_SET_ARGUMENT = 15    # Bad arguement in SET_FIELD action.
 # enum ofp_bad_instruction_code
 OFPBIC_UNKNOWN_INST = 0         # Unknown instruction.
 OFPBIC_UNSUP_INST = 1           # Switch or table does not support
-                                # the instruction.
+# the instruction.
 OFPBIC_BAD_TABLE_ID = 2         # Invalid Table-Id specified
 OFPBIC_UNSUP_METADATA = 3       # Metadata value unsupported by datapath.
 OFPBIC_UNSUP_METADATA_MASK = 4  # Metadata mask value unsupported by
-                                # datapath.
+# datapath.
 OFPBIC_BAD_EXPERIMENTER = 5     # Unknown experimenter id specified.
 OFPBIC_BAD_EXP_TYPE = 6         # Unknown instruction for experimenter id.
 OFPBIC_BAD_LEN = 7              # Length problem in instrucitons.
@@ -945,21 +946,21 @@ OFPBIC_EPERM = 8                # Permissions error.
 
 # enum ofp_bad_match_code
 OFPBMC_BAD_TYPE = 0             # Unsupported match type apecified by
-                                # the match.
+# the match.
 OFPBMC_BAD_LEN = 1              # Length problem in math.
 OFPBMC_BAD_TAG = 2              # Match uses an unsupported tag/encap.
 OFPBMC_BAD_DL_ADDR_MASK = 3     # Unsupported datalink addr mask -
-                                # switch does not support arbitrary
-                                # datalink address mask.
+# switch does not support arbitrary
+# datalink address mask.
 OFPBMC_BAD_NW_ADDR_MASK = 4     # Unsupported network addr mask -
-                                # switch does not support arbitrary
-                                # network addres mask.
+# switch does not support arbitrary
+# network addres mask.
 OFPBMC_BAD_WILDCARDS = 5        # Unsupported combination of fields
-                                # masked or omitted in the match.
+# masked or omitted in the match.
 OFPBMC_BAD_FIELD = 6            # Unsupported field type in the match.
 OFPBMC_BAD_VALUE = 7            # Unsupported value in a match field.
 OFPBMC_BAD_MASK = 8             # Unsupported mask specified in the
-                                # match.
+# match.
 OFPBMC_BAD_PREREQ = 9           # A prerequisite was not met.
 OFPBMC_DUP_FIELD = 10           # A field type was duplicated.
 OFPBMC_EPERM = 11               # Permissions error.
@@ -969,10 +970,10 @@ OFPFMFC_UNKNOWN = 0             # Unspecified error.
 OFPFMFC_TABLE_FULL = 1          # Flow not added because table was full.
 OFPFMFC_BAD_TABLE_ID = 2        # Table does not exist
 OFPFMFC_OVERLAP = 3             # Attempted to add overlapping flow
-                                # with CHECK_OVERLAP flag set.
+# with CHECK_OVERLAP flag set.
 OFPFMFC_EPERM = 4               # Permissions error.
 OFPFMFC_BAD_TIMEOUT = 5         # Flow not added because of
-                                # unsupported idle/hard timeout.
+# unsupported idle/hard timeout.
 OFPFMFC_BAD_COMMAND = 6         # Unsupported or unknown command.
 OFPFMFC_BAD_FLAGS = 7           # Unsupported or unknown flags.
 
@@ -980,20 +981,20 @@ OFPFMFC_BAD_FLAGS = 7           # Unsupported or unknown flags.
 OFPGMFC_GROUP_EXISTS = 0
 OFPGMFC_INVALID_GROUP = 1
 OFPGMFC_WEIGHT_UNSUPPORTED = 2      # Switch does not support unequal load
-                                    # sharing with select groups.
+# sharing with select groups.
 OFPGMFC_OUT_OF_GROUPS = 3           # The group table is full.
 OFPGMFC_OUT_OF_BUCKETS = 4          # The maximum number of action buckets
-                                    # for a group has been exceeded.
+# for a group has been exceeded.
 OFPGMFC_CHAINING_UNSUPPORTED = 5    # Switch does not support groups that
-                                    # forward to groups.
+# forward to groups.
 OFPGMFC_WATCH_UNSUPPORTED = 6       # This group cannot watch the
-                                    # watch_port or watch_group specified.
+# watch_port or watch_group specified.
 OFPGMFC_LOOP = 7                    # Group entry would cause a loop.
 OFPGMFC_UNKNOWN_GROUP = 8           # Group not modified because a group
-                                    # MODIFY attempted to modify a
-                                    # non-existent group.
+# MODIFY attempted to modify a
+# non-existent group.
 OFPGMFC_CHAINED_GROUP = 9           # Group not deleted because another
-                                    # group is forwarding to it.
+# group is forwarding to it.
 OFPGMFC_BAD_TYPE = 10               # Unsupported or unknown group type.
 OFPGMFC_BAD_COMMAND = 11            # Unsupported or unknown command.
 OFPGMFC_BAD_BUCKET = 12             # Error in bucket.
@@ -1003,7 +1004,7 @@ OFPGMFC_EPERM = 14                  # Permissions error.
 # enum ofp_port_mod_failed_code
 OFPPMFC_BAD_PORT = 0        # Specified port does not exist.
 OFPPMFC_BAD_HW_ADDR = 1     # Specified hardware address does not
-                            # match the port number.
+# match the port number.
 OFPPMFC_BAD_CONFIG = 2      # Specified config is invalid.
 OFPPMFC_BAD_ADVERTISE = 3   # Specified advertise is invalid.
 OFPPMFC_EPERM = 4           # Permissions error.
@@ -1022,9 +1023,9 @@ OFPQOFC_EPERM = 2           # Permissions error.
 OFPSCFC_BAD_FLAGS = 0       # Specified flags is invalid.
 OFPSCFC_BAD_LEN = 1         # Specified len is invalid.
 OFPQCFC_EPERM = 2           # Permissions error (depracated).
-                            # New or updated Ryu applications shall use
-                            # OFPSCFC_EPERM. The variable name is a typo of
-                            # in specifications before v1.3.1 (EXT-208).
+# New or updated Ryu applications shall use
+# OFPSCFC_EPERM. The variable name is a typo of
+# in specifications before v1.3.1 (EXT-208).
 OFPSCFC_EPERM = 2           # Permissions error.
 
 # enum ofp_role_request_failed_code
@@ -1035,12 +1036,12 @@ OFPRRFC_BAD_ROLE = 2        # Invalid role.
 # enum ofp_meter_mod_failed_code
 OFPMMFC_UNKNOWN = 0         # Unspecified error.
 OFPMMFC_METER_EXISTS = 1    # Meter not added because a Meter ADD
-                            # attempted to replace an existing Meter.
+# attempted to replace an existing Meter.
 OFPMMFC_INVALID_METER = 2   # Meter not added because Meter specified
-                            # is invalid.
+# is invalid.
 OFPMMFC_UNKNOWN_METER = 3   # Meter not modified because a Meter
-                            # MODIFY attempted to modify a non-existent
-                            # Meter.
+# MODIFY attempted to modify a non-existent
+# Meter.
 OFPMMFC_BAD_COMMAND = 4     # Unsupported or unknown command.
 OFPMMFC_BAD_FLAGS = 5       # Flag configuration unsupported.
 OFPMMFC_BAD_RATE = 6        # Rate unsupported.
@@ -1049,7 +1050,7 @@ OFPMMFC_BAD_BAND = 8        # Band unsupported.
 OFPMMFC_BAD_BAND_VALUE = 9  # Band value unsupported.
 OFPMMFC_OUT_OF_METERS = 10  # No more meters availabile.
 OFPMMFC_OUT_OF_BANDS = 11   # The maximum number of properties
-                            # for a meter has been exceeded.
+# for a meter has been exceeded.
 
 # enum ofp_table_features_failed_code
 OFPTFFC_BAD_TABLE = 0       # Specified table does not exist.
