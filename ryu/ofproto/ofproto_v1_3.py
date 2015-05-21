@@ -253,7 +253,6 @@ OFPAT_PUSH_PBB = 26             # Push a new PBB service tag (I-TAG)
 OFPAT_POP_PBB = 27              # Pop the outer PBB service tag (I-TAG)
 OFPAT_EXPERIMENTER = 0xffff
 
-OFPAT_SELF_LEARNING = 30
 
 # struct ofp_action_header
 OFP_ACTION_HEADER_PACK_STR = '!HH4x'
