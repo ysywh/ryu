@@ -227,6 +227,9 @@ OFPAT_GROUP = 22            # Apply group
 OFPAT_SET_NW_TTL = 23       # IP TTL.
 OFPAT_DEC_NW_TTL = 24       # Decrement IP TTL.
 OFPAT_SET_FIELD = 25        # Set a header field using OXM TLV format.
+# add my new action type
+OFPAT_SELF_LEARNING
+
 OFPAT_EXPERIMENTER = 0xffff
 
 # struct ofp_action_header
